@@ -1,5 +1,5 @@
 name: Nat-MOTD
-version: '1.0-ALPHA'
+version: '1.0'
 main: fr.Nat0uille.NatMOTD.Main
 api-version: '1.21'
 load: STARTUP
@@ -7,7 +7,6 @@ authors: [ Nat0uille ]
 commands:
     nat-motd:
         description: "Commandes de gestion du MOTD"
-        usage: "/Nat-MOTD reload"
 permission:
   NatMOTD.reload:
     description: "Permission pour recharger le MOTD"
