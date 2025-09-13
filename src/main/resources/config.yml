@@ -14,6 +14,7 @@
 # SETTINGS                                                                            #
 #######################################################################################
 motd:
+  # Displays the selected motd
   selected: 1
   1:
     line1:
@@ -37,10 +38,17 @@ motd:
 # MESSAGES                                                                            #
 #######################################################################################
 messages:
+  # plugin prefix
   prefix: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold> <gray>-"
+  # message displayed when a player does not have permission
   nopermission: "<#C70000><bold>✖</bold> You do not have permission to execute this command. "
-  usage: "<#ffc369><bold>USAGE</bold>\n/Nat-MOTD reload: ʀᴇʟᴏᴀᴅ ʟᴇ ᴍᴏᴛᴅ. "
+  # message displayed when /nat-motd
+  usage: "<#ffc369><bold>USAGE</bold>\n/nat-motd reload: ʀᴇʟᴏᴀᴅ ʟᴇ ᴍᴏᴛᴅ.\n/nat-motd select <number>: ѕᴇʟᴇᴄᴛ ᴍᴏᴛᴅ"
+  # message displayed when /nat-motd select with no number
   usage-select: "<#ffc369><bold>USAGE</bold>: /nat-motd select <number>"
+  # message displayed when /nat-motd reload is use
   reload: "<#C70000><bold>✔</bold> The MOTD has been reloaded successfully!"
+  # message displayed when /nat-motd select is use
   select: "<#C70000><bold>✔</bold> You have selected the MOTD {number}."
+  # message displayed when the plugin is outdated
   outdated: "<#C70000>The plugin is not up to date. Local version: <bold>{local}</bold>, latest version: <bold>{latest}</bold>"
