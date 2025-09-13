@@ -13,7 +13,6 @@
 #######################################################################################
 # SETTINGS                                                                            #
 #######################################################################################
-
 motd:
   selected: 1
   1:
@@ -21,7 +20,7 @@ motd:
       text: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold>"
       center: true
     line2:
-      text: "<#cfcfcf>ᴄᴏɴꜰɪɢ ᴅᴇ ʙᴀѕᴇ (ᴄᴏɴꜰɪɢ.ʏᴍʟ)"
+      text: "<#cfcfcf>ᴅᴇꜰᴀᴜʟᴛ ᴄᴏɴꜰɪɢ (ᴄᴏɴꜰɪɢ.ʏᴍʟ)"
       center: false
     players-max: 0
   2:
@@ -29,14 +28,18 @@ motd:
       text: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold>"
       center: false
     line2:
-      text: "<#cfcfcf>ᴄᴏɴꜰɪɢ ᴅᴇ ʙᴀѕᴇ (ᴄᴏɴꜰɪɢ.ʏᴍʟ)"
+      text: "<#cfcfcf>ᴅᴇꜰᴀᴜʟᴛ ᴄᴏɴꜰɪɢ (ᴄᴏɴꜰɪɢ.ʏᴍʟ)"
       center: true
     players-max: 9999
 
 
-
+#######################################################################################
+# MESSAGES                                                                            #
+#######################################################################################
 messages:
-  prefix: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold> <gray>• "
-  nopermission: "<#C70000><bold>✖</bold> Vous n'avez pas la permission d'exécuter cette commande."
-  usage: "<#ffc369><bold>USAGE</bold>\n/Nat-MOTD reload : ʀᴇʟᴏᴀᴅ ʟᴇ ᴍᴏᴛᴅ."
-  reload: "<#C70000><bold>✔</bold> Le MOTD a été rechargé avec succès !"
+  prefix: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold> <gray>-"
+  nopermission: "<#C70000><bold>✖</bold> You do not have permission to execute this command. "
+  usage: "<#ffc369><bold>USAGE</bold>\n/Nat-MOTD reload: ʀᴇʟᴏᴀᴅ ʟᴇ ᴍᴏᴛᴅ. "
+  usage-select: "<#ffc369><bold>USAGE</bold>: /nat-motd select <number>"
+  reload: "<#C70000><bold>✔</bold> The MOTD has been reloaded successfully!"
+  select: "<#C70000><bold>✔</bold> You have selected the MOTD {number}."

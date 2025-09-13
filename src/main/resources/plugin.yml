@@ -6,8 +6,18 @@ load: STARTUP
 authors: [ Nat0uille ]
 commands:
     nat-motd:
-        description: "Commandes de gestion du MOTD"
+      aliases: [ motd ]
 permission:
-  NatMOTD.reload:
-    description: "Permission pour recharger le MOTD"
+  natmotd.reload:
     default: op
+  natmotd.select:
+    default: op
+  natmotd.admin:
+    default: op
+    children:
+      natmotd.reload: true
+      natmotd.select: true
+  natmotd.*:
+    default: op
+    children:
+      natmotd.admin: true
