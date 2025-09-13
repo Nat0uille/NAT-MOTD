@@ -45,10 +45,7 @@ public class MOTDListener implements Listener {
 
         Component motd = final1.append(Component.newline()).append(final2);
         event.motd(motd);
-
-        if (playersMax > 0) {
-            event.setMaxPlayers(playersMax);
-        }
+        event.setMaxPlayers(playersMax);
     }
 
     public static String centerMotd(String message) {

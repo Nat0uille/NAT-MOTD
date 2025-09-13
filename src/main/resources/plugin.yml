@@ -1,5 +1,5 @@
 name: Nat-MOTD
-version: '1.0'
+version: ${version}
 main: fr.Nat0uille.NatMOTD.Main
 api-version: '1.21'
 load: STARTUP

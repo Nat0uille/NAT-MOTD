@@ -10,7 +10,7 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
 
-        getLogger().info(getDescription().getName() + " Par " + String.join(", ", getDescription().getAuthors()));
+        getLogger().info(getDescription().getName() + " by " + String.join(", ", getDescription().getAuthors()));
         getLogger().info("Version: " + getDescription().getVersion());
 
         getCommand("Nat-MOTD").setExecutor(new MOTDCommand(this));
@@ -20,6 +20,6 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getLogger().info(getDescription().getName() + " désactivé !");
+        getLogger().info(getDescription().getName() + " disabled!");
     }
 }
