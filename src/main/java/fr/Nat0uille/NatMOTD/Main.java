@@ -6,6 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin {
 
+    private CheckVersion checkVersion;
+
     @Override
     public void onEnable() {
         saveDefaultConfig();
@@ -16,10 +18,17 @@ public final class Main extends JavaPlugin {
         getCommand("Nat-MOTD").setExecutor(new MOTDCommand(this));
 
         getServer().getPluginManager().registerEvents(new MOTDListener(this), this);
+
+        checkVersion = new CheckVersion();
+        CheckVersion.startVersionCheck(this, checkVersion);
     }
 
     @Override
     public void onDisable() {
         getLogger().info(getDescription().getName() + " disabled!");
+    }
+
+    public CheckVersion getCheckVersion() {
+        return checkVersion;
     }
 }

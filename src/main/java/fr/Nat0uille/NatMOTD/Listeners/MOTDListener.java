@@ -6,16 +6,34 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.ServerListPingEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class MOTDListener implements Listener {
 
     public Main Main;
+    MiniMessage mm = MiniMessage.miniMessage();
 
     public MOTDListener(Main Main) {
         this.Main = Main;
     }
 
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (event.getPlayer().hasPermission("natwhitelist.admin")) {
+                    if (Main.getCheckVersion().outdated()) {
+                        event.getPlayer().sendMessage(mm.deserialize(Main.getConfig().getString("messages.prefix") + Main.getConfig().getString("messages.outdated")
+                                .replace("{latest}", Main.getCheckVersion().getRemoteVersion())
+                                .replace("{local}", Main.getCheckVersion().getLocalVersion())));
+                    }
+                }
+            }
+        }.runTaskLater(Main, 20);
+    }
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
         MiniMessage mm = MiniMessage.miniMessage();

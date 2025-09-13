@@ -43,3 +43,4 @@ messages:
   usage-select: "<#ffc369><bold>USAGE</bold>: /nat-motd select <number>"
   reload: "<#C70000><bold>✔</bold> The MOTD has been reloaded successfully!"
   select: "<#C70000><bold>✔</bold> You have selected the MOTD {number}."
+  outdated: "<#C70000>The plugin is not up to date. Local version: <bold>{local}</bold>, latest version: <bold>{latest}</bold>"
