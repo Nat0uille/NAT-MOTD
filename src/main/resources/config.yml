@@ -18,7 +18,7 @@ motd:
   selected: 1
   1:
     line1:
-      text: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold>"
+      text: "<bold><gradient:#00C700:#239519>NAT-MOTD</gradient></bold>"
       center: true
     line2:
       text: "<#cfcfcf>ᴅᴇꜰᴀᴜʟᴛ ᴄᴏɴꜰɪɢ (ᴄᴏɴꜰɪɢ.ʏᴍʟ)"
@@ -26,7 +26,7 @@ motd:
     players-max: 0
   2:
     line1:
-      text: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold>"
+      text: "<bold><gradient:#00C700:#239519>NAT-MOTD</gradient></bold>"
       center: false
     line2:
       text: "<#cfcfcf>ᴅᴇꜰᴀᴜʟᴛ ᴄᴏɴꜰɪɢ (ᴄᴏɴꜰɪɢ.ʏᴍʟ)"
@@ -39,16 +39,16 @@ motd:
 #######################################################################################
 messages:
   # plugin prefix
-  prefix: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold> <gray>-"
+  prefix: "<bold><gradient:#00C700:#239519>NAT-MOTD</gradient></bold> <gray>-"
   # message displayed when a player does not have permission
   nopermission: "<#C70000><bold>✖</bold> You do not have permission to execute this command. "
   # message displayed when /nat-motd
-  usage: "<#ffc369><bold>USAGE</bold>\n/nat-motd reload: ʀᴇʟᴏᴀᴅ ʟᴇ ᴍᴏᴛᴅ.\n/nat-motd select <number>: ѕᴇʟᴇᴄᴛ ᴍᴏᴛᴅ"
+  usage: "<#69FFA7><bold>USAGE</bold>\n/nat-motd reload: ʀᴇʟᴏᴀᴅ ʟᴇ ᴍᴏᴛᴅ.\n/nat-motd select <number>: ѕᴇʟᴇᴄᴛ ᴍᴏᴛᴅ"
   # message displayed when /nat-motd select with no number
-  usage-select: "<#ffc369><bold>USAGE</bold>: /nat-motd select <number>"
+  usage-select: "<#69FFA7><bold>USAGE</bold>: /nat-motd select <number>"
   # message displayed when /nat-motd reload is use
-  reload: "<#C70000><bold>✔</bold> The MOTD has been reloaded successfully!"
+  reload: "<#69FFA7><bold>✔</bold> The MOTD has been reloaded successfully!"
   # message displayed when /nat-motd select is use
-  select: "<#C70000><bold>✔</bold> You have selected the MOTD {number}."
+  select: "<#69FFA7><bold>✔</bold> You have selected the MOTD {number}."
   # message displayed when the plugin is outdated
   outdated: "<#C70000>The plugin is not up to date. Local version: <bold>{local}</bold>, latest version: <bold>{latest}</bold>"
