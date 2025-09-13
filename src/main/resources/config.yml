@@ -1,19 +1,42 @@
-#############################################
-# Fichier de configuration NAT-MOTD          #
-# Par Nat0uille                             #
-#############################################
-# Tous les textes utilise le format MiniMessage, si vous utilisez autre chose ça fonctionnera pas !!!
-# Pour créer vos messages, vous pouvez utiliser le site https://webui.advntr.dev/
-
-prefix: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold> <gray>• "
-nopermission: "<#C70000><bold>✖</bold> Vous n'avez pas la permission d'exécuter cette commande."
-usage: "<#ffc369><bold>USAGE</bold>\n/Nat-MOTD reload : ʀᴇʟᴏᴀᴅ ʟᴇ ᴍᴏᴛᴅ."
-reload: "<#C70000><bold>✔</bold> Le MOTD a été rechargé avec succès !"
+#######################################################################################
+#    ███    ██  █████  ████████       ███    ███  ██████  ████████ ██████             #
+#    ████   ██ ██   ██    ██          ████  ████ ██    ██    ██    ██   ██            #
+#    ██ ██  ██ ███████    ██    █████ ██ ████ ██ ██    ██    ██    ██   ██            #
+#    ██  ██ ██ ██   ██    ██          ██  ██  ██ ██    ██    ██    ██   ██            #
+#    ██   ████ ██   ██    ██          ██      ██  ██████     ██    ██████             #
+#######################################################################################
+# Made by Nat0uille & Love                                                            #
+# Config version : 1.1                                                                #
+#######################################################################################
+# All texts use the MiniMessage format. If you use anything else, it will not work!!! #
+# To create your messages, you can use the website https://webui.advntr.dev/          #
+#######################################################################################
+# SETTINGS                                                                            #
+#######################################################################################
 
 motd:
-  line1:
-    text: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold>"
-    center: true
-  line2:
-    text: "<#cfcfcf>ᴄᴏɴꜰɪɢ ᴅᴇ ʙᴀѕᴇ (ᴄᴏɴꜰɪɢ.ʏᴍʟ)"
-    center: false
+  selected: 1
+  1:
+    line1:
+      text: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold>"
+      center: true
+    line2:
+      text: "<#cfcfcf>ᴄᴏɴꜰɪɢ ᴅᴇ ʙᴀѕᴇ (ᴄᴏɴꜰɪɢ.ʏᴍʟ)"
+      center: false
+    players-max: 0
+  2:
+    line1:
+      text: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold>"
+      center: false
+    line2:
+      text: "<#cfcfcf>ᴄᴏɴꜰɪɢ ᴅᴇ ʙᴀѕᴇ (ᴄᴏɴꜰɪɢ.ʏᴍʟ)"
+      center: true
+    players-max: 9999
+
+
+
+messages:
+  prefix: "<bold><gradient:#C70000:#951919>NAT-MOTD</gradient></bold> <gray>• "
+  nopermission: "<#C70000><bold>✖</bold> Vous n'avez pas la permission d'exécuter cette commande."
+  usage: "<#ffc369><bold>USAGE</bold>\n/Nat-MOTD reload : ʀᴇʟᴏᴀᴅ ʟᴇ ᴍᴏᴛᴅ."
+  reload: "<#C70000><bold>✔</bold> Le MOTD a été rechargé avec succès !"

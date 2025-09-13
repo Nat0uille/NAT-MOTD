@@ -20,11 +20,16 @@ public class MOTDListener implements Listener {
     public void onServerListPing(ServerListPingEvent event) {
         MiniMessage mm = MiniMessage.miniMessage();
 
-        String rawLine1 = Main.getConfig().getString("motd.line1.text");
-        String rawLine2 = Main.getConfig().getString("motd.line2.text");
+        int selected = Main.getConfig().getInt("motd.selected", 1);
 
-        boolean center1 = Main.getConfig().getBoolean("motd.line1.center");
-        boolean center2 = Main.getConfig().getBoolean("motd.line2.center");
+        String pathPrefix = "motd." + selected + ".";
+        String rawLine1 = Main.getConfig().getString(pathPrefix + "line1.text");
+        String rawLine2 = Main.getConfig().getString(pathPrefix + "line2.text");
+
+        boolean center1 = Main.getConfig().getBoolean(pathPrefix + "line1.center");
+        boolean center2 = Main.getConfig().getBoolean(pathPrefix + "line2.center");
+
+        int playersMax = Main.getConfig().getInt(pathPrefix + "players-max", 0);
 
         Component comp1 = mm.deserialize(rawLine1);
         Component comp2 = mm.deserialize(rawLine2);
@@ -40,6 +45,10 @@ public class MOTDListener implements Listener {
 
         Component motd = final1.append(Component.newline()).append(final2);
         event.motd(motd);
+
+        if (playersMax > 0) {
+            event.setMaxPlayers(playersMax);
+        }
     }
 
     public static String centerMotd(String message) {

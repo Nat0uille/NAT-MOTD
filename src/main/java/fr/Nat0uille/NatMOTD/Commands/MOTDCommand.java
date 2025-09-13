@@ -17,19 +17,19 @@ public class MOTDCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         MiniMessage mm = MiniMessage.miniMessage();
-        Component prefix = mm.deserialize(Main.getConfig().getString("prefix"));
-        Component nopermission = mm.deserialize(Main.getConfig().getString("nopermission"));
-        if (!sender.hasPermission("NatMOTD.reload")) {
+        Component prefix = mm.deserialize(Main.getConfig().getString("messages.prefix"));
+        Component nopermission = mm.deserialize(Main.getConfig().getString("messages.nopermission"));
+        if (!sender.hasPermission("natmotd.reload")) {
             sender.sendMessage(prefix.append(nopermission));
             return true;
         }
         if (args.length == 0) {
-            sender.sendMessage(prefix.append(mm.deserialize(Main.getConfig().getString("usage"))));
+            sender.sendMessage(prefix.append(mm.deserialize(Main.getConfig().getString("messages.usage"))));
             return true;
         }
         if (args[0].equalsIgnoreCase("reload")) {
             Main.reloadConfig();
-            Component reloadMessage = mm.deserialize(Main.getConfig().getString("reload"));
+            Component reloadMessage = mm.deserialize(Main.getConfig().getString("messages.reload"));
             sender.sendMessage(prefix.append(reloadMessage));
             return true;
         }
