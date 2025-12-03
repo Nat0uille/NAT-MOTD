@@ -1,7 +1,6 @@
 package fr.Nat0uille.NATMOTD.Listeners;
 
 import com.velocitypowered.api.event.Subscribe;
-import com.velocitypowered.api.event.connection.PostLoginEvent;
 import com.velocitypowered.api.event.proxy.ProxyPingEvent;
 import fr.Nat0uille.NATMOTD.Main;
 import fr.Nat0uille.NatMOTD.CenterMOTD;
@@ -22,15 +21,23 @@ public class MOTDListener {
     @Subscribe
     public void onProxyPing(ProxyPingEvent event) {
         ConfigurationNode config = main.getConfig();
-        int selected = config.node("motd", "selected").getInt(1);
-        String rawLine1 = config.node("motd", String.valueOf(selected), "line1", "text").getString();
-        String rawLine2 = config.node("motd", String.valueOf(selected), "line2", "text").getString();
-        boolean center1 = config.node("motd", String.valueOf(selected), "line1", "center").getBoolean();
-        boolean center2 = config.node("motd", String.valueOf(selected), "line2", "center").getBoolean();
-        int playersMax = config.node("motd", String.valueOf(selected), "players-max").getInt();
+        if (config == null) {
+            return;
+        }
 
-        Component comp1 = mm.deserialize(rawLine1);
-        Component comp2 = mm.deserialize(rawLine2);
+        int selected = config.node("motd", "selected").getInt(1);
+        String rawLine1 = config.node("motd", selected, "line1", "text").getString("");
+        String rawLine2 = config.node("motd", selected, "line2", "text").getString("");
+        boolean center1 = config.node("motd", selected, "line1", "center").getBoolean(false);
+        boolean center2 = config.node("motd", selected, "line2", "center").getBoolean(false);
+        int playersMax = config.node("motd", selected, "players-max").getInt(0);
+
+        if (rawLine1.isEmpty() && rawLine2.isEmpty()) {
+            return;
+        }
+
+        Component comp1 = rawLine1.isEmpty() ? Component.empty() : mm.deserialize(rawLine1);
+        Component comp2 = rawLine2.isEmpty() ? Component.empty() : mm.deserialize(rawLine2);
         String legacy1 = LegacyComponentSerializer.legacySection().serialize(comp1);
         String legacy2 = LegacyComponentSerializer.legacySection().serialize(comp2);
         if (center1) legacy1 = CenterMOTD.CenterMOTD(legacy1);
@@ -40,11 +47,19 @@ public class MOTDListener {
         Component motd = final1.append(Component.newline()).append(final2);
 
         ServerPing originalPing = event.getPing();
+        int maxPlayers = playersMax > 0 ? playersMax : originalPing.getPlayers().map(ServerPing.Players::getMax).orElse(20);
+
         ServerPing.Builder builder = ServerPing.builder()
             .version(originalPing.getVersion())
             .description(motd)
-            .favicon(originalPing.getFavicon().orElse(null))
-            .maximumPlayers(playersMax);
+            .maximumPlayers(maxPlayers);
+
+        originalPing.getFavicon().ifPresent(builder::favicon);
+
+        originalPing.getPlayers().ifPresent(players ->
+            builder.onlinePlayers(players.getOnline())
+        );
+
         event.setPing(builder.build());
     }
 }

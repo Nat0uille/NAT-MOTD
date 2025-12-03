@@ -18,14 +18,14 @@ public class MOTDCommand implements SimpleCommand {
         CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
         MiniMessage mm = MiniMessage.miniMessage();
-        String prefixStr = main.getConfig().getString("messages.prefix");
-        String nopermissionStr = main.getConfig().getString("messages.nopermission");
-        Component prefix = mm.deserialize(prefixStr != null ? prefixStr : "");
-        Component nopermission = mm.deserialize(nopermissionStr != null ? nopermissionStr : "");
+        String prefixStr = main.getConfig().node("messages", "prefix").getString("");
+        String nopermissionStr = main.getConfig().node("messages", "nopermission").getString("");
+        Component prefix = mm.deserialize(prefixStr.isEmpty() ? "<bold>[NAT-MOTD]</bold> <gray>-" : prefixStr);
+        Component nopermission = mm.deserialize(nopermissionStr.isEmpty() ? "<red>No permission</red>" : nopermissionStr);
 
         if (args.length == 0) {
-            String usageStr = main.getConfig().getString("messages.usage");
-            sender.sendMessage(prefix.append(mm.deserialize(usageStr != null ? usageStr : "")));
+            String usageStr = main.getConfig().node("messages", "usage").getString("");
+            sender.sendMessage(prefix.append(mm.deserialize(usageStr.isEmpty() ? "<red>Usage: /nat-motd [reload|select]</red>" : usageStr)));
             return;
         }
         if (args[0].equalsIgnoreCase("reload")) {
@@ -34,8 +34,8 @@ public class MOTDCommand implements SimpleCommand {
                 return;
             }
             main.reloadConfig();
-            String reloadStr = main.getConfig().getString("messages.reload");
-            Component reloadMessage = mm.deserialize(reloadStr != null ? reloadStr : "");
+            String reloadStr = main.getConfig().node("messages", "reload").getString("");
+            Component reloadMessage = mm.deserialize(reloadStr.isEmpty() ? "<green>Config reloaded!</green>" : reloadStr);
             sender.sendMessage(prefix.append(reloadMessage));
             return;
         }
@@ -45,27 +45,22 @@ public class MOTDCommand implements SimpleCommand {
                 return;
             }
             if (args.length == 1) {
-                String usageSelectStr = main.getConfig().getString("messages.usage-select");
-                sender.sendMessage(prefix.append(mm.deserialize(usageSelectStr != null ? usageSelectStr : "")));
+                String usageSelectStr = main.getConfig().node("messages", "usage-select").getString("");
+                sender.sendMessage(prefix.append(mm.deserialize(usageSelectStr.isEmpty() ? "<red>Usage: /nat-motd select <number></red>" : usageSelectStr)));
                 return;
             }
             try {
                 int selected = Integer.parseInt(args[1]);
-                try {
-                    main.getConfig().node("motd", "selected").set(selected);
-                    main.saveConfig();
-                    String selectStr = main.getConfig().getString("messages.select");
-                    Component selectMessage = mm.deserialize((selectStr != null ? selectStr : "").replace("{number}", args[1]));
-                    sender.sendMessage(prefix.append(selectMessage));
-                } catch (org.spongepowered.configurate.serialize.SerializationException se) {
-                    sender.sendMessage(prefix.append(mm.deserialize("<red>Erreur lors de la sauvegarde de la sélection MOTD.</red>")));
-                }
+                main.updateSelectedMotd(selected);
+                String selectStr = main.getConfig().node("messages", "select").getString("");
+                Component selectMessage = mm.deserialize((selectStr.isEmpty() ? "<green>MOTD {number} selected!</green>" : selectStr).replace("{number}", args[1]));
+                sender.sendMessage(prefix.append(selectMessage));
             } catch (NumberFormatException e) {
-                String usageSelectStr = main.getConfig().getString("messages.usage-select");
-                sender.sendMessage(prefix.append(mm.deserialize(usageSelectStr != null ? usageSelectStr : "")));
+                String usageSelectStr = main.getConfig().node("messages", "usage-select").getString("");
+                sender.sendMessage(prefix.append(mm.deserialize(usageSelectStr.isEmpty() ? "<red>Usage: /nat-motd select <number></red>" : usageSelectStr)));
             }
             return;
         }
-        sender.sendMessage(prefix.append(mm.deserialize(main.getConfig().getString("messages.usage"))));
+        sender.sendMessage(prefix.append(mm.deserialize(main.getConfig().node("messages", "usage").getString("<red>Usage: /nat-motd [reload|select]</red>"))));
     }
 }
