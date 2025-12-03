@@ -1,6 +1,6 @@
-package fr.Nat0uille.NatMOTD.Commands;
+package fr.Nat0uille.NATMOTD.Commands;
 
-import fr.Nat0uille.NatMOTD.Main;
+import fr.Nat0uille.NATMOTD.Main;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;

@@ -1,7 +1,9 @@
-package fr.Nat0uille.NatMOTD;
+package fr.Nat0uille.NATMOTD;
 
-import fr.Nat0uille.NatMOTD.Commands.MOTDCommand;
-import fr.Nat0uille.NatMOTD.Listeners.MOTDListener;
+import fr.Nat0uille.NATMOTD.Commands.MOTDCommand;
+import fr.Nat0uille.NATMOTD.Listeners.MOTDListener;
+import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin {
@@ -12,8 +14,12 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
 
-        getLogger().info(getDescription().getName() + " by " + String.join(", ", getDescription().getAuthors()));
-        getLogger().info("Version: " + getDescription().getVersion());
+        ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+        console.sendMessage("");
+        console.sendMessage("          §a___   "+ getDescription().getName());
+        console.sendMessage("§a|\\ |  /\\   |    §2Made by §aNat0uille");
+        console.sendMessage("§a| \\| /~~\\  |    §2Version §a" + getDescription().getVersion());
+        console.sendMessage("");
 
         getCommand("Nat-MOTD").setExecutor(new MOTDCommand(this));
 

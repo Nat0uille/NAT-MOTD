@@ -1,4 +1,4 @@
-package fr.Nat0uille.NatMOTD;
+package fr.Nat0uille.NATMOTD;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;

@@ -1,1 +1,5 @@
-rootProject.name = 'Nat-MOTD'
+rootProject.name = "NAT-MOTD"
+
+include "common"
+include "spigot"
+include "velocity"

@@ -1,6 +1,7 @@
-package fr.Nat0uille.NatMOTD.Listeners;
+package fr.Nat0uille.NATMOTD.Listeners;
 
-import fr.Nat0uille.NatMOTD.Main;
+import fr.Nat0uille.NATMOTD.Main;
+import fr.Nat0uille.NatMOTD.CenterMOTD;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -34,6 +35,7 @@ public class MOTDListener implements Listener {
             }
         }.runTaskLater(Main, 20);
     }
+
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
         MiniMessage mm = MiniMessage.miniMessage();
@@ -55,8 +57,8 @@ public class MOTDListener implements Listener {
         String legacy1 = LegacyComponentSerializer.legacySection().serialize(comp1);
         String legacy2 = LegacyComponentSerializer.legacySection().serialize(comp2);
 
-        if (center1) legacy1 = centerMotd(legacy1);
-        if (center2) legacy2 = centerMotd(legacy2);
+        if (center1) legacy1 = CenterMOTD.CenterMOTD(legacy1);
+        if (center2) legacy2 = CenterMOTD.CenterMOTD(legacy2);
 
         Component final1 = LegacyComponentSerializer.legacySection().deserialize(legacy1);
         Component final2 = LegacyComponentSerializer.legacySection().deserialize(legacy2);
@@ -64,58 +66,5 @@ public class MOTDListener implements Listener {
         Component motd = final1.append(Component.newline()).append(final2);
         event.motd(motd);
         event.setMaxPlayers(playersMax);
-    }
-
-    public static String centerMotd(String message) {
-        if (message == null || message.equals("")) return "";
-
-        int CENTER_PX = 130;
-        int messagePxSize = 0;
-
-        boolean previousCode = false;
-        boolean isBold = false;
-
-        for (char c : message.toCharArray()) {
-            if (c == '§') {
-                previousCode = true;
-                continue;
-            } else if (previousCode) {
-                previousCode = false;
-                if (c == 'l' || c == 'L') {
-                    isBold = true;
-                } else {
-                    isBold = false;
-                }
-                continue;
-            }
-
-            int charPx = getDefaultCharWidth(c);
-            messagePxSize += isBold ? charPx + 1 : charPx;
-            messagePxSize++;
-        }
-
-        int halvedMessageSize = messagePxSize / 2;
-        int toCompensate = CENTER_PX - halvedMessageSize;
-        int spaceWidth = getDefaultCharWidth(' ');
-        int compensated = 0;
-        StringBuilder sb = new StringBuilder();
-
-        while (compensated < toCompensate) {
-            sb.append(" ");
-            compensated += spaceWidth;
-        }
-
-        return sb + message;
-    }
-
-    public static int getDefaultCharWidth(char c) {
-        switch (c) {
-            case 'i': case 'l': case '.': case ',': case '!': case '|': return 2;
-            case '\'': return 3;
-            case ' ': return 4;
-            case 't': case 'I': case '[': case ']': return 4;
-            case 'k': case '{': case '}': case '<': case '>': return 5;
-            default: return 6;
-        }
     }
 }

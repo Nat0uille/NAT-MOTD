@@ -1,0 +1,10 @@
+{
+  "id": "natmotd",
+  "name": "Nat-MOTD",
+  "version": "${version}",
+  "main": "fr.Nat0uille.NATMOTD.Main",
+  "authors": [
+    "Nat0uille"
+  ],
+  "dependencies": []
+}
