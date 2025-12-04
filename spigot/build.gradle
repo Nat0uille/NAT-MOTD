@@ -50,4 +50,9 @@ processResources {
 jar {
     destinationDirectory = file("$rootDir/jar")
     archiveFileName = "${rootProject.name}-${version}-spigot.jar"
+
+    // Inclure les classes du module common
+    from(project(':common').sourceSets.main.output) {
+        include '**/*.class'
+    }
 }

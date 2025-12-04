@@ -2,6 +2,7 @@ package fr.Nat0uille.NATMOTD;
 
 import fr.Nat0uille.NATMOTD.Commands.MOTDCommand;
 import fr.Nat0uille.NATMOTD.Listeners.MOTDListener;
+import fr.Nat0uille.NATMOTD.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,6 +22,7 @@ public final class Main extends JavaPlugin {
         console.sendMessage("§a| \\| /~~\\  |    §2Version §a" + getDescription().getVersion());
         console.sendMessage("");
 
+        Metrics metrics = new Metrics(this,28216);
         getCommand("Nat-MOTD").setExecutor(new MOTDCommand(this));
 
         getServer().getPluginManager().registerEvents(new MOTDListener(this), this);
