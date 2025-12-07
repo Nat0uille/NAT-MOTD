@@ -1,7 +1,6 @@
 package fr.Nat0uille.NATMOTD.Listeners;
 
 import fr.Nat0uille.NATMOTD.Main;
-import fr.Nat0uille.NatMOTD.CenterMOTD;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -10,6 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import static fr.Nat0uille.NatMOTD.CenterMOTD.CenterMOTD;
+
 
 public class MOTDListener implements Listener {
 
@@ -57,8 +59,8 @@ public class MOTDListener implements Listener {
         String legacy1 = LegacyComponentSerializer.legacySection().serialize(comp1);
         String legacy2 = LegacyComponentSerializer.legacySection().serialize(comp2);
 
-        if (center1) legacy1 = CenterMOTD.CenterMOTD(legacy1);
-        if (center2) legacy2 = CenterMOTD.CenterMOTD(legacy2);
+        if (center1) legacy1 = CenterMOTD(legacy1);
+        if (center2) legacy2 = CenterMOTD(legacy2);
 
         Component final1 = LegacyComponentSerializer.legacySection().deserialize(legacy1);
         Component final2 = LegacyComponentSerializer.legacySection().deserialize(legacy2);

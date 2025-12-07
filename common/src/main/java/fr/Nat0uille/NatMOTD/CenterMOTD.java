@@ -1,5 +1,6 @@
 package fr.Nat0uille.NatMOTD;
 
+import static fr.Nat0uille.NatMOTD.GetDefaultCharWidth.GetDefaultCharWidth;
 public class CenterMOTD {
 
     public static String CenterMOTD(String message) {
@@ -25,14 +26,14 @@ public class CenterMOTD {
                 continue;
             }
 
-            int charPx = GetDefaultCharWidth.GetDefaultCharWidth(c);
+            int charPx = GetDefaultCharWidth(c);
             messagePxSize += isBold ? charPx + 1 : charPx;
             messagePxSize++;
         }
 
         int halvedMessageSize = messagePxSize / 2;
         int toCompensate = CENTER_PX - halvedMessageSize;
-        int spaceWidth = GetDefaultCharWidth.GetDefaultCharWidth(' ');
+        int spaceWidth = GetDefaultCharWidth(' ');
         int compensated = 0;
         StringBuilder sb = new StringBuilder();
 
