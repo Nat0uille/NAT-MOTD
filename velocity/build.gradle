@@ -4,14 +4,17 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven { url = "https://repo.velocitypowered.com/snapshots/" }
-    maven { url = "https://repo.velocitypowered.com/releases/" }
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
 }
 
 
 dependencies {
     implementation project(':common')
-    compileOnly "com.velocitypowered:velocity-api:3.3.0-SNAPSHOT"
+    compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
+    annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 }
 
 def targetJavaVersion = 21

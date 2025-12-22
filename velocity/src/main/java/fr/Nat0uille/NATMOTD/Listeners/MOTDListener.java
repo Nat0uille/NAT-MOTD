@@ -36,14 +36,34 @@ public class MOTDListener {
             return;
         }
 
-        Component comp1 = rawLine1.isEmpty() ? Component.empty() : mm.deserialize(rawLine1);
-        Component comp2 = rawLine2.isEmpty() ? Component.empty() : mm.deserialize(rawLine2);
-        String legacy1 = LegacyComponentSerializer.legacySection().serialize(comp1);
-        String legacy2 = LegacyComponentSerializer.legacySection().serialize(comp2);
+        Component comp1 = mm.deserialize(rawLine1);
+        Component comp2 = mm.deserialize(rawLine2);
+
+        String legacy1 = LegacyComponentSerializer.builder()
+                .hexColors()
+                .useUnusualXRepeatedCharacterHexFormat()
+                .build()
+                .serialize(comp1);
+        String legacy2 = LegacyComponentSerializer.builder()
+                .hexColors()
+                .useUnusualXRepeatedCharacterHexFormat()
+                .build()
+                .serialize(comp2);
+
         if (center1) legacy1 = CenterMOTD.CenterMOTD(legacy1);
         if (center2) legacy2 = CenterMOTD.CenterMOTD(legacy2);
-        Component final1 = LegacyComponentSerializer.legacySection().deserialize(legacy1);
-        Component final2 = LegacyComponentSerializer.legacySection().deserialize(legacy2);
+
+        Component final1 = LegacyComponentSerializer.builder()
+                .hexColors()
+                .useUnusualXRepeatedCharacterHexFormat()
+                .build()
+                .deserialize(legacy1);
+        Component final2 = LegacyComponentSerializer.builder()
+                .hexColors()
+                .useUnusualXRepeatedCharacterHexFormat()
+                .build()
+                .deserialize(legacy2);
+
         Component motd = final1.append(Component.newline()).append(final2);
 
         ServerPing originalPing = event.getPing();
