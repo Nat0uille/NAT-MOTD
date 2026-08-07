@@ -6,6 +6,7 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import com.velocitypowered.api.util.Favicon;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
@@ -35,6 +36,9 @@ public class Main {
     private final ProxyServer server;
     private ConfigurationNode config;
     private final Path configPath;
+    private final Path dataDirectory;
+    private Favicon serverFavicon;
+    private CheckVersion checkVersion;
 
     @Inject
     public Main(ProxyServer server, @DataDirectory Path dataDirectory) {
@@ -44,8 +48,10 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.dataDirectory = dataDirectory;
         this.configPath = dataDirectory.resolve("config.yml");
         loadConfig();
+        reloadServerIcon();
     }
 
     @Subscribe
@@ -72,6 +78,21 @@ public class Main {
             new MOTDCommand(this)
         );
         server.getEventManager().register(this, new MOTDListener(this));
+
+        checkVersion = new CheckVersion();
+        CheckVersion.startVersionCheck(this, checkVersion);
+    }
+
+    public ProxyServer getServer() {
+        return server;
+    }
+
+    public Path getDataDirectory() {
+        return dataDirectory;
+    }
+
+    public CheckVersion getCheckVersion() {
+        return checkVersion;
     }
 
     public ConfigurationNode getConfig() {
@@ -80,6 +101,46 @@ public class Main {
 
     public void reloadConfig() {
         loadConfig();
+        reloadServerIcon();
+    }
+
+    public void reloadServerIcon() {
+        serverFavicon = null;
+
+        if (config == null) {
+            return;
+        }
+
+        int selected = config.node("motd", "selected").getInt(1);
+        String iconPath = config.node("motd", selected, "icon").getString("");
+
+        if (iconPath == null || iconPath.isBlank()) {
+            return;
+        }
+
+        Path iconFile = dataDirectory.resolve(iconPath);
+        if (!Files.exists(iconFile)) {
+            server.getConsoleCommandSource().sendMessage(
+                    Component.text("MOTD icon file not found: " + iconFile, NamedTextColor.YELLOW));
+            return;
+        }
+
+        try {
+            serverFavicon = Favicon.create(iconFile);
+        } catch (IOException e) {
+            server.getConsoleCommandSource().sendMessage(
+                    Component.text("Failed to load MOTD icon '" + iconPath + "': " + e.getMessage(), NamedTextColor.YELLOW));
+        }
+    }
+
+    public Favicon getServerFavicon() {
+        return serverFavicon;
+    }
+
+    public String getVersion() {
+        return server.getPluginManager().fromInstance(this)
+                .flatMap(container -> container.getDescription().getVersion())
+                .orElse("unknown");
     }
 
     private YamlConfigurationLoader createLoader() {

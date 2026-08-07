@@ -6,14 +6,19 @@ import fr.Nat0uille.NATMOTD.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.CachedServerIcon;
+
+import java.io.File;
 
 public final class Main extends JavaPlugin {
 
     private CheckVersion checkVersion;
+    private CachedServerIcon serverIcon;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        reloadServerIcon();
 
         ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
         console.sendMessage("");
@@ -38,5 +43,36 @@ public final class Main extends JavaPlugin {
 
     public CheckVersion getCheckVersion() {
         return checkVersion;
+    }
+
+    public void reloadServerIcon() {
+        serverIcon = null;
+
+        int selected = getConfig().getInt("motd.selected", 1);
+        String iconPath = getConfig().getString("motd." + selected + ".icon", "");
+
+        if (iconPath == null || iconPath.isBlank()) {
+            return;
+        }
+
+        File iconFile = new File(getDataFolder(), iconPath);
+        if (!iconFile.exists()) {
+            getLogger().warning("MOTD icon file not found: " + iconFile.getPath());
+            return;
+        }
+
+        try {
+            serverIcon = getServer().loadServerIcon(iconFile);
+        } catch (Exception e) {
+            getLogger().warning("Failed to load MOTD icon '" + iconPath + "': " + e.getMessage());
+        }
+    }
+
+    public CachedServerIcon getServerIcon() {
+        return serverIcon;
+    }
+
+    public File getPluginFile() {
+        return getFile();
     }
 }

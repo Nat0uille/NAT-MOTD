@@ -30,6 +30,7 @@ public class MOTDCommand implements CommandExecutor {
                 return true;
             }
             Main.reloadConfig();
+            Main.reloadServerIcon();
             Component reloadMessage = mm.deserialize(Main.getConfig().getString("messages.reload"));
             sender.sendMessage(prefix.append(reloadMessage));
             return true;
@@ -47,6 +48,7 @@ public class MOTDCommand implements CommandExecutor {
                 int selected = Integer.parseInt(args[1]);
                 Main.getConfig().set("motd.selected", selected);
                 Main.saveConfig();
+                Main.reloadServerIcon();
                 Component selectMessage = mm.deserialize(Main.getConfig().getString("messages.select").replace("{number}", args[1]));
                 sender.sendMessage(prefix.append(selectMessage));
             } catch (NumberFormatException e) {

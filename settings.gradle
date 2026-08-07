@@ -1,5 +1,5 @@
 rootProject.name = "NAT-MOTD"
 
 include "common"
-include "spigot"
+include "paper"
 include "velocity"

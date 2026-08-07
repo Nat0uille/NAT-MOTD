@@ -6,32 +6,80 @@
 #    ██   ████ ██   ██    ██          ██      ██  ██████     ██    ██████             #
 #######################################################################################
 # Made by Nat0uille & Love                                                            #
-# Config version : 1.1                                                                #
+# Config version : 1.2                                                                #
 #######################################################################################
 # All texts use the MiniMessage format. If you use anything else, it will not work!!! #
 # To create your messages, you can use the website https://webui.advntr.dev/          #
+# Placeholders available in line1/line2: {version}, {online}, {max}, {timer:<name>}  #
+#######################################################################################
+# TIMERS                                                                              #
+#######################################################################################
+# Named countdowns. Use {timer:<name>} in line1/line2 to display the time remaining
+# until "end" (format: yyyy-MM-dd HH:mm:ss, proxy's local time zone).
+# Once passed, "expired" is shown instead (leave empty to show 00:00:00).
+#######################################################################################
+timers:
+  example:
+    end: "2026-12-31 23:59:59"
+    expired: "Terminé !"
+
+
+#######################################################################################
+# UPDATE CHECKER                                                                      #
+#######################################################################################
+# Checks Modrinth (project "nat-motd") for new releases every 3 hours.
+update-checker:
+  enabled: true
+  # If true, automatically downloads new versions to plugins/natmotd/update/.
+  # Velocity has no automatic update-folder: you must move the file into plugins/ and
+  # restart the proxy yourself to apply it.
+  auto-download: true
+
+
 #######################################################################################
 # SETTINGS                                                                            #
 #######################################################################################
 motd:
   # Displays the selected motd
   selected: 1
+  # Optionally force a specific motd depending on the hostname the client used to connect
+  # (e.g. multiple domains pointing to this proxy). Overrides "selected" above when matched.
+  hostnames: []
+  #  - hostname: "play.example.com"
+  #    motd: 1
+  #  - hostname: "vip.example.com"
+  #    motd: 2
   1:
     line1:
       text: "<bold><gradient:#00C700:#239519>NAT-MOTD</gradient></bold>"
       center: true
     line2:
-      text: "<#cfcfcf>ᴅᴇꜰᴀᴜʟᴛ ᴄᴏɴꜰɪɢ (ᴄᴏɴꜰɪɢ.ʏᴍʟ)"
+      text: "<#cfcfcf>ᴅᴇꜰᴀᴜʟᴛ ᴄᴏɴꜰɪɢ (ᴄᴏɴꜰɪɢ.ʏᴍʟ) - v{version}"
       center: false
+    # Path to a 64x64 PNG image, relative to the plugin's data folder (plugins/natmotd/). Leave empty to keep the proxy's/backend's default icon.
+    icon: ""
     players-max: 0
+    # If true, ignores players-max above and always shows (current online players + 1) as the max, so the server never appears full.
+    players-max-online: false
+    # Text shown when hovering the player count in the server list. Leave hover.enabled false to keep the real player list.
+    hover:
+      enabled: false
+      lines: []
   2:
     line1:
       text: "<bold><gradient:#00C700:#239519>NAT-MOTD</gradient></bold>"
       center: false
     line2:
-      text: "<#cfcfcf>ᴅᴇꜰᴀᴜʟᴛ ᴄᴏɴꜰɪɢ (ᴄᴏɴꜰɪɢ.ʏᴍʟ)"
+      text: "<#cfcfcf>v{version} - {online}/{max} ᴊᴏᴜᴇᴜʀꜱ - {timer:example}"
       center: true
+    icon: ""
     players-max: 9999
+    players-max-online: false
+    hover:
+      enabled: true
+      lines:
+        - "<gray>Rejoins-nous sur notre Discord !"
+        - "<gray>discord.gg/exemple"
 
 
 #######################################################################################
