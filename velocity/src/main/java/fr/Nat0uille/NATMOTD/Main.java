@@ -69,7 +69,7 @@ public class Main {
         server.getConsoleCommandSource().sendMessage(
             Component.text("| \\| /~~\\  |    ", NamedTextColor.GREEN)
                 .append(Component.text("Version ", NamedTextColor.DARK_GREEN))
-                .append(Component.text("1.2.0", NamedTextColor.GREEN))
+                .append(Component.text(getVersion(), NamedTextColor.GREEN))
         );
         server.getConsoleCommandSource().sendMessage(Component.empty());
 
